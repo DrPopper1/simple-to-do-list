@@ -1,0 +1,174 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: cursive;
+    color: black;
+    background: #edf0f1;
+    padding: 80px 0 0 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-container {
+    width: 100%;
+    padding: 15px;
+}
+
+.header {
+    width: 100%;
+    height: 80px;
+
+    position: fixed;
+    padding: 15px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    background-color: rgb(101, 201, 110);
+    box-shadow: 0 4px 8px rgba(44, 62, 80, 0.15);
+}
+
+.header-input {
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    padding: 0 60px 0 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px 23px 23px 5px;
+    border: none;
+    outline: none;
+}
+
+.header-input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.header-button {
+    width: 50px;
+    height: 50px;
+    background: transparent url("img/plus.png") no-repeat center/cover;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+
+    border: 0;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.todo {
+    width: 100%;
+}
+
+.todo-item {
+    width: 100%;
+    min-height: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    line-height: 22px;
+
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(44, 62, 80, 0.10);
+    margin: 0 0 10px 0;
+    padding: 14px 100px 14px 14px;
+    word-break: break-word;
+}
+
+.todo-item:last-of-type {
+    margin: 0;
+}
+
+.todo-buttons {
+    width: 100px;
+    height: 50px;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.todo-buttons button {
+    width: 50px;
+    height: 50px;
+    float: left;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border: 0;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.todo-remove {
+     background-image: url("img/trash.png");
+     background-size: contain;
+ }
+
+.todo-complete {
+    background-image: url("img/uncheck.png");
+    background-size: contain;
+}
+
+.todo-completed span {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.todo-completed .todo-complete {
+    background-image: url("img/check.png");
+}
+
+.todo-completed {
+    position: relative;
+    padding: 60px 0 0 0;
+}
+
+.todo-completed:before {
+    content: '';
+    width: 150px;
+    height: 1px;
+    background: #d8e5e0;
+
+    position: absolute;
+    top: 30px;
+    left: 50%;
+
+    margin: 0 0 0 -75px;
+}
+
+.todo:empty:after {
+    content: 'Нет задач';
+    margin: 15px 0 0 0;
+}
+
+.todo-completed:empty:after {
+    content: 'Нет выполненых задач';
+}
+
+.todo:after,
+.todo-completed:after {
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+}
