@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список дел</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="todo-control">
+            <label>
+                <input class="header-input" type="text" placeholder="Какие планы?">
+            </label>
+            <button class="header-button" id="add"></button>
+        </div>
+    </header>
+
+    <div class="todo-container">
+        <ul class="todo todo-list" id="todo"></ul>
+        <ul class="todo todo-completed" id="completed"></ul>
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
