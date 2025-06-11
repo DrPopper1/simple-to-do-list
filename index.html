@@ -15,6 +15,20 @@
     </noscript>
 
     <header class="header">
+        <div class="dropdown">
+            <button class="dropdown-button">
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </button>
+            <div class="dropdown-content">
+                <div>Создать список задач</div>
+                <div onclick="deleteAll()">Удалить все задачи</div>
+                <div onclick="completeAll()">Пометить все задачи выполненными</div>
+            </div>
+        </div>
         <div class="todo-control">
             <label>
                 <input class="header-input" type="text" placeholder="Какие планы?">
