@@ -21,9 +21,21 @@ function toDoList() {
         li.classList.add("todo-item");
         li.innerHTML = `<span class="text-todo">${item.value}</span>
         <div class="todo-buttons">
+            <button class="todo-text">+</button>
             <button class="todo-remove"></button>
             <button class="todo-complete"></button>
-        </div>`;
+        </div>
+        <div class="desc">${item.description}</div>`;
+
+        const todo_text = li.querySelector('.todo-text');
+        todo_text.addEventListener('click', function() {
+            const desc = prompt('Напишите описание');
+            const descr = li.querySelector('.desc');
+            descr.innerHTML = desc;
+            item.description = desc;
+            localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+            toDoList();
+        });
 
         const btn_todo_complete = li.querySelector('.todo-complete');
         btn_todo_complete.addEventListener('click', function() {
@@ -52,7 +64,8 @@ function add() {
     if (header_input.value.trim() !== "") {
         let new_todo = {
             value: header_input.value.trim(),
-            completed: false
+            completed: false,
+            description: ""
         };
         todo_data.push(new_todo);
         header_input.value = "";

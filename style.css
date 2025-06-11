@@ -42,7 +42,7 @@ ul {
 }
 
 .header-input {
-    width: 92vw;
+    width: 740%;
     height: 50px;
     color: #fff;
     padding: 0 60px 0 20px;
@@ -97,7 +97,7 @@ ul {
 }
 
 .todo-buttons {
-    width: 100px;
+    width: 150px;
     height: 50px;
 
     position: absolute;
@@ -250,4 +250,9 @@ ul {
     height: 3px;
     width: 100%;
     background-color: white;
+}
+
+.todo-text {
+    color: rgb(83, 80, 80);
+    font-size: 26px;
 }
