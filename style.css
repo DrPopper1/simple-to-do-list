@@ -263,4 +263,5 @@ ul {
     width: 100%;
     min-height: 50px;
     padding: 14px 100px 14px 14px;
+    gap: 10px;
 }

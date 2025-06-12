@@ -3,6 +3,7 @@ const header_input = document.querySelector('.header-input');
 const todo_list = document.getElementById('todo');
 const todo_completed = document.getElementById('completed');
 const header_button = document.getElementById('add');
+const list_buttons = document.querySelector('.list-buttons');
 
 localStorage.removeItem('todo_saved');
 
@@ -23,12 +24,12 @@ function toDoList() {
 
     todo_list.innerHTML = '';
     todo_completed.innerHTML = '';
+    list_buttons.innerHTML = '<button class="todo-text" onclick="createNewList()">+</button>';
 
     for(let i = 0; i < Object.keys(all_list).length; i++) {
         const list_button = document.createElement("button");
         list_button.classList.add("todo-text");
-        list_button.innerHTML = Object.keys(all_list);
-        const list_buttons = document.querySelector('.list-buttons');
+        list_button.innerHTML = Object.keys(all_list)[i];
         list_buttons.append(list_button);
     }
 
@@ -118,6 +119,15 @@ function completeAll() {
         localStorage.setItem('all_list', JSON.stringify(all_list));
         toDoList();
     }
+}
+
+function createNewList() {
+    const name = prompt('Напишите название нового списка');
+    const new_list = [name, []];
+    all_list[new_list[0]] = new_list[1];
+    current_list = new_list;
+    localStorage.setItem('all_list', JSON.stringify(all_list));
+    toDoList();
 }
 
 toDoList();
