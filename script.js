@@ -5,8 +5,6 @@ const todo_completed = document.getElementById('completed');
 const header_button = document.getElementById('add');
 const list_buttons = document.querySelector('.list-buttons');
 
-localStorage.removeItem('todo_saved');
-
 let current_list;
 let all_list;
 
@@ -34,69 +32,78 @@ function toDoList() {
             current_list = Object.entries(all_list)[i];
             toDoList();
         })
+        if (list_button.innerHTML == current_list[0]) {
+            list_button.style.color = '#3e8e41'
+        }
         list_buttons.append(list_button);
     }
 
-    current_list[1].forEach(function(item, i) {
+    if (current_list != undefined) {
+        current_list[1].forEach(function(item, i) {
+            let li = document.createElement("li");
+            li.classList.add("todo-item");
+            li.innerHTML = `<span class="text-todo">${item.value}</span>
+            <div class="todo-buttons">
+                <button class="todo-text">+</button>
+                <button class="todo-remove"></button>
+                <button class="todo-complete"></button>
+            </div>
+            <div class="desc">${item.description}</div>`
+    
+            const todo_text = li.querySelector('.todo-text');
+            todo_text.addEventListener('click', function() {
+                const desc = prompt('Напишите описание');
+                const descr = li.querySelector('.desc');
+                descr.innerHTML = desc;
+                item.description = desc;
+                all_list[current_list[0]] = current_list[1]
+                localStorage.setItem('all_list', JSON.stringify(all_list));
+                toDoList();
+            });
+    
+            const btn_todo_complete = li.querySelector('.todo-complete');
+            btn_todo_complete.addEventListener('click', function() {
+                item.completed = !item.completed;
+                all_list[current_list[0]] = current_list[1]
+                localStorage.setItem('all_list', JSON.stringify(all_list));
+                toDoList();
+            });
+    
+            const btn_todo_remove = li.querySelector('.todo-remove');
+            btn_todo_remove.addEventListener('click', function() {
+                current_list[1].splice(i, 1);
+                all_list[current_list[0]] = current_list[1]
+                localStorage.setItem('all_list', JSON.stringify(all_list));
+                toDoList();
+            });
 
-        let li = document.createElement("li");
-        li.classList.add("todo-item");
-        li.innerHTML = `<span class="text-todo">${item.value}</span>
-        <div class="todo-buttons">
-            <button class="todo-text">+</button>
-            <button class="todo-remove"></button>
-            <button class="todo-complete"></button>
-        </div>
-        <div class="desc">${item.description}</div>`
-
-        const todo_text = li.querySelector('.todo-text');
-        todo_text.addEventListener('click', function() {
-            const desc = prompt('Напишите описание');
-            const descr = li.querySelector('.desc');
-            descr.innerHTML = desc;
-            item.description = desc;
-            all_list[current_list[0]] = current_list[1]
-            localStorage.setItem('all_list', JSON.stringify(all_list));
-            toDoList();
+            if (item.completed) {
+                todo_completed.append(li);
+            } else {
+                todo_list.append(li);
+            }
         });
-
-        const btn_todo_complete = li.querySelector('.todo-complete');
-        btn_todo_complete.addEventListener('click', function() {
-            item.completed = !item.completed;
-            all_list[current_list[0]] = current_list[1]
-            localStorage.setItem('all_list', JSON.stringify(all_list));
-            toDoList();
-        });
-
-        const btn_todo_remove = li.querySelector('.todo-remove');
-        btn_todo_remove.addEventListener('click', function() {
-            current_list[1].splice(i, 1);
-            all_list[current_list[0]] = current_list[1]
-            localStorage.setItem('all_list', JSON.stringify(all_list));
-            toDoList();
-        });
-
-        if (item.completed) {
-            todo_completed.append(li);
-        } else {
-            todo_list.append(li);
-        }
-    });
+    }
     console.log(current_list);
+    console.log(all_list);
 }
 
 function add() {
     if (header_input.value.trim() !== "") {
-        let new_todo = {
-            value: header_input.value.trim(),
-            completed: false,
-            description: ""
-        };
-        current_list[1].push(new_todo);
-        header_input.value = "";
-        all_list[current_list[0]] = current_list[1]
-        localStorage.setItem('all_list', JSON.stringify(all_list));
-        toDoList();
+        if (current_list === undefined) {
+            alert("Создайте список");
+        } else {
+            let new_todo = {
+                value: header_input.value.trim(),
+                completed: false,
+                description: ""
+            };
+            current_list[1].push(new_todo);
+            header_input.value = "";
+            all_list[current_list[0]] = current_list[1]
+            localStorage.setItem('all_list', JSON.stringify(all_list));
+            toDoList();
+        }
     }
 }
 
@@ -130,6 +137,13 @@ function createNewList() {
     const new_list = [name, []];
     all_list[new_list[0]] = new_list[1];
     current_list = new_list;
+    localStorage.setItem('all_list', JSON.stringify(all_list));
+    toDoList();
+}
+
+function deleteList() {
+    delete all_list[current_list[0]]
+    current_list = Object.entries(all_list)[0];
     localStorage.setItem('all_list', JSON.stringify(all_list));
     toDoList();
 }
