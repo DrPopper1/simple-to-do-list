@@ -105,7 +105,7 @@ ul {
     right: 0;
 }
 
-.todo-buttons button {
+.todo-buttons button, .todo-text {
     width: 50px;
     height: 50px;
     float: left;
@@ -198,6 +198,7 @@ ul {
 
 .dropdown {
     margin-right: 20px;
+    user-select: none;
 }
 
 .dropdown-button {
@@ -255,4 +256,11 @@ ul {
 .todo-text {
     color: rgb(83, 80, 80);
     font-size: 26px;
+}
+
+.list-buttons {
+    display: flex;
+    width: 100%;
+    min-height: 50px;
+    padding: 14px 100px 14px 14px;
 }

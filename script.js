@@ -4,19 +4,36 @@ const todo_list = document.getElementById('todo');
 const todo_completed = document.getElementById('completed');
 const header_button = document.getElementById('add');
 
-let todo_data;
+localStorage.removeItem('todo_saved');
 
-if (localStorage.getItem('todo_saved')) {
-    todo_data = JSON.parse(localStorage.getItem('todo_saved'));
+let current_list;
+let all_list;
+
+if (localStorage.getItem('all_list')) {
+    all_list = JSON.parse(localStorage.getItem('all_list'));
+    current_list = Object.entries(all_list)[0];
 } else {
-    todo_data = [];
+    all_list = {
+        'list1' : []
+    };
+    current_list = Object.entries(all_list)[0];
 }
 
 function toDoList() {
+
     todo_list.innerHTML = '';
     todo_completed.innerHTML = '';
 
-    todo_data.forEach(function(item, i) {
+    for(let i = 0; i < Object.keys(all_list).length; i++) {
+        const list_button = document.createElement("button");
+        list_button.classList.add("todo-text");
+        list_button.innerHTML = Object.keys(all_list);
+        const list_buttons = document.querySelector('.list-buttons');
+        list_buttons.append(list_button);
+    }
+
+    current_list[1].forEach(function(item, i) {
+
         let li = document.createElement("li");
         li.classList.add("todo-item");
         li.innerHTML = `<span class="text-todo">${item.value}</span>
@@ -25,7 +42,7 @@ function toDoList() {
             <button class="todo-remove"></button>
             <button class="todo-complete"></button>
         </div>
-        <div class="desc">${item.description}</div>`;
+        <div class="desc">${item.description}</div>`
 
         const todo_text = li.querySelector('.todo-text');
         todo_text.addEventListener('click', function() {
@@ -33,21 +50,24 @@ function toDoList() {
             const descr = li.querySelector('.desc');
             descr.innerHTML = desc;
             item.description = desc;
-            localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+            all_list[current_list[0]] = current_list[1]
+            localStorage.setItem('all_list', JSON.stringify(all_list));
             toDoList();
         });
 
         const btn_todo_complete = li.querySelector('.todo-complete');
         btn_todo_complete.addEventListener('click', function() {
             item.completed = !item.completed;
-            localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+            all_list[current_list[0]] = current_list[1]
+            localStorage.setItem('all_list', JSON.stringify(all_list));
             toDoList();
         });
 
         const btn_todo_remove = li.querySelector('.todo-remove');
         btn_todo_remove.addEventListener('click', function() {
-            todo_data.splice(i, 1);
-            localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+            current_list[1].splice(i, 1);
+            all_list[current_list[0]] = current_list[1]
+            localStorage.setItem('all_list', JSON.stringify(all_list));
             toDoList();
         });
 
@@ -57,7 +77,7 @@ function toDoList() {
             todo_list.append(li);
         }
     });
-    console.log(todo_data);
+    console.log(current_list);
 }
 
 function add() {
@@ -67,9 +87,10 @@ function add() {
             completed: false,
             description: ""
         };
-        todo_data.push(new_todo);
+        current_list[1].push(new_todo);
         header_input.value = "";
-        localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+        all_list[current_list[0]] = current_list[1]
+        localStorage.setItem('all_list', JSON.stringify(all_list));
         toDoList();
     }
 }
@@ -81,19 +102,20 @@ header_input.addEventListener('keyup', function(event) {
 });
 
 function deleteAll() {
-    todo_data = [];
-    localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+    all_list[current_list[0]] = [];
+    localStorage.setItem('all_list', JSON.stringify(all_list));
     toDoList();
 }
 
 function completeAll() {
-    for(i = 0; i < todo_data.length; i++) {
-        let complete_todo = todo_data[i];
+    for(i = 0; i < current_list[1].length; i++) {
+        let complete_todo = current_list[1[i]];
         if (complete_todo.completed === false) {
             complete_todo.completed = true;
         };
-        todo_data[i] = complete_todo;
-        localStorage.setItem('todo_saved', JSON.stringify(todo_data));
+        current_list[1[i]] = complete_todo;
+        all_list[current_list[0]] = current_list[1]
+        localStorage.setItem('all_list', JSON.stringify(all_list));
         toDoList();
     }
 }
