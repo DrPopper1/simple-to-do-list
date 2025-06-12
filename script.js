@@ -30,6 +30,10 @@ function toDoList() {
         const list_button = document.createElement("button");
         list_button.classList.add("todo-text");
         list_button.innerHTML = Object.keys(all_list)[i];
+        list_button.addEventListener('click', function() {
+            current_list = Object.entries(all_list)[i];
+            toDoList();
+        })
         list_buttons.append(list_button);
     }
 
