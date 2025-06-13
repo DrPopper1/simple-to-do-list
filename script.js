@@ -115,15 +115,16 @@ header_input.addEventListener('keyup', function(event) {
 
 function deleteAll() {
     all_list[current_list[0]] = [];
+    current_list[1] = [];
     localStorage.setItem('all_list', JSON.stringify(all_list));
     toDoList();
 }
 
 function completeAll() {
     for(i = 0; i < current_list[1].length; i++) {
-        let complete_todo = current_list[1[i]];
-        if (complete_todo.completed === false) {
-            complete_todo.completed = true;
+        let complete_todo = current_list[1];
+        if (complete_todo[i].completed === false) {
+            complete_todo[i].completed = true;
         };
         current_list[1[i]] = complete_todo;
         all_list[current_list[0]] = current_list[1]
@@ -147,5 +148,15 @@ function deleteList() {
     localStorage.setItem('all_list', JSON.stringify(all_list));
     toDoList();
 }
+
+dropdown = document.querySelector('.dropdown');
+dropdown.addEventListener('click', function() {
+    const dropdown_content = document.querySelector('.dropdown-content');
+    if (dropdown_content.style.display == 'block') {
+        dropdown_content.style.display = 'none'
+    } else {
+        dropdown_content.style.display = 'block';
+    }
+});
 
 toDoList();

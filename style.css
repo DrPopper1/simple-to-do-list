@@ -13,6 +13,7 @@ body {
     color: black;
     background: #edf0f1;
     padding: 80px 0 0 0;
+    font-size: 16px;
 }
 
 ul {
@@ -41,8 +42,12 @@ ul {
     box-shadow: 0 4px 8px rgba(44, 62, 80, 0.15);
 }
 
+.todo-control {
+    width: 95vw;
+}
+
 .header-input {
-    width: 740%;
+    width: 100%;
     height: 50px;
     color: #fff;
     padding: 0 60px 0 20px;
@@ -78,7 +83,7 @@ ul {
 .todo-item {
     width: 100%;
     min-height: 50px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #444;
     line-height: 22px;
@@ -88,7 +93,7 @@ ul {
     position: relative;
     box-shadow: 0 1px 2px rgba(44, 62, 80, 0.10);
     margin: 0 0 10px 0;
-    padding: 14px 100px 14px 14px;
+    padding: 14px 150px 14px 14px;
     word-break: break-word;
 }
 
@@ -170,7 +175,7 @@ ul {
     width: 100%;
     display: block;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     color: #aaa;
 }
 
@@ -205,7 +210,6 @@ ul {
     background-color: #4CAF50;
     color: white;
     padding: 16px;
-    font-size: 16px;
     border: none;
     cursor: pointer;
 }
@@ -231,7 +235,7 @@ ul {
     background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content, .dropdown:active .dropdown-content {
     display: block;
 }
 
@@ -255,13 +259,84 @@ ul {
 
 .todo-text {
     color: rgb(83, 80, 80);
-    font-size: 26px;
+    font-size: 30px;
 }
 
 .list-buttons {
     display: flex;
     width: 100%;
     min-height: 50px;
-    padding: 14px 100px 14px 14px;
+    padding: 5px 0 0 14px;
     gap: 10px;
 }
+
+.text-todo {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .todo-item {
+        font-size: 8px;
+        padding: 10px 75px 10px 10px;
+    }
+
+    .todo:after,
+    .todo-completed:after {
+        font-size: 8px;
+    }
+
+    body {
+        padding-top: 70px;
+    }
+
+    .header-input {
+        font-size: 8px;
+    }
+
+    .todo-text {
+        font-size: 14px;
+        padding: 5px 0 0 10px;
+    }
+
+    .todo-buttons button, .todo-text {
+        width: 30px;
+        height: 30px;
+    }
+
+    .todo-buttons {
+        width: 90px;
+    }
+
+    .dropdown-content {
+        max-width: 100px;
+        z-index: 1;
+    }
+
+    .dropdown-content div {
+        font-size: 10px;
+    }
+
+    .dropdown-button {
+        padding: 8px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .todo-item {
+        font-size: 14px;
+    }
+
+    .todo:after,
+    .todo-completed:after {
+        font-size: 12px;
+    }
+
+    body {
+        padding-top: 70px;
+    }
+
+    .todo-text {
+        font-size: 26px;
+        padding: 5px 0 0 10px;
+    }
+}
+/* @media (min-width: 1024px) {} */
