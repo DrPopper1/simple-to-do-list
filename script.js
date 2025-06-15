@@ -18,25 +18,30 @@ if (localStorage.getItem('all_list')) {
     current_list = Object.entries(all_list)[0];
 }
 
+function buttons_list() {
+    list_buttons.innerHTML = '<div class="plus" onclick="createNewList()">+</div>';
+
+    for(let i = 0; i < Object.keys(all_list).length; i++) {
+        const list_button = document.createElement("div");
+        list_button.classList.add("todo-text");
+        list_button.classList.add("hed");
+        list_button.innerHTML = Object.keys(all_list)[i];
+        list_button.addEventListener('click', function() {
+            current_list = Object.entries(all_list)[i];
+            buttons_list();
+            toDoList();
+        })
+        if (list_button.innerHTML == current_list[0]) {
+            list_button.style.color = '#265926'
+        }
+        list_buttons.append(list_button);
+    }
+}
+
 function toDoList() {
 
     todo_list.innerHTML = '';
     todo_completed.innerHTML = '';
-    list_buttons.innerHTML = '<button class="todo-text" onclick="createNewList()">+</button>';
-
-    for(let i = 0; i < Object.keys(all_list).length; i++) {
-        const list_button = document.createElement("button");
-        list_button.classList.add("todo-text");
-        list_button.innerHTML = Object.keys(all_list)[i];
-        list_button.addEventListener('click', function() {
-            current_list = Object.entries(all_list)[i];
-            toDoList();
-        })
-        if (list_button.innerHTML == current_list[0]) {
-            list_button.style.color = '#3e8e41'
-        }
-        list_buttons.append(list_button);
-    }
 
     if (current_list != undefined) {
         current_list[1].forEach(function(item, i) {
@@ -44,21 +49,23 @@ function toDoList() {
             li.classList.add("todo-item");
             li.innerHTML = `<span class="text-todo">${item.value}</span>
             <div class="todo-buttons">
-                <button class="todo-text">+</button>
-                <button class="todo-remove"></button>
-                <button class="todo-complete"></button>
+                <div class="plus">+</div>
+                <div class="todo-remove"></div>
+                <div class="todo-complete"></div>
             </div>
             <div class="desc">${item.description}</div>`
     
-            const todo_text = li.querySelector('.todo-text');
+            const todo_text = li.querySelector('.plus');
             todo_text.addEventListener('click', function() {
                 const desc = prompt('Напишите описание');
-                const descr = li.querySelector('.desc');
-                descr.innerHTML = desc;
-                item.description = desc;
-                all_list[current_list[0]] = current_list[1]
-                localStorage.setItem('all_list', JSON.stringify(all_list));
-                toDoList();
+                if (desc != null & desc.replaceAll(' ', '') != "") {
+                    const descr = li.querySelector('.desc');
+                    descr.innerHTML = desc;
+                    item.description = desc;
+                    all_list[current_list[0]] = current_list[1]
+                    localStorage.setItem('all_list', JSON.stringify(all_list));
+                    toDoList();
+                }
             });
     
             const btn_todo_complete = li.querySelector('.todo-complete');
@@ -135,11 +142,14 @@ function completeAll() {
 
 function createNewList() {
     const name = prompt('Напишите название нового списка');
-    const new_list = [name, []];
-    all_list[new_list[0]] = new_list[1];
-    current_list = new_list;
-    localStorage.setItem('all_list', JSON.stringify(all_list));
-    toDoList();
+    if (name != null & name.replaceAll(' ', '') != "") {
+        const new_list = [name, []];
+        all_list[new_list[0]] = new_list[1];
+        current_list = new_list;
+        localStorage.setItem('all_list', JSON.stringify(all_list));
+        buttons_list();
+        toDoList();
+    }
 }
 
 function deleteList() {
@@ -147,6 +157,7 @@ function deleteList() {
     current_list = Object.entries(all_list)[0];
     localStorage.setItem('all_list', JSON.stringify(all_list));
     toDoList();
+    buttons_list();
 }
 
 dropdown = document.querySelector('.dropdown');
@@ -159,4 +170,5 @@ dropdown.addEventListener('click', function() {
     }
 });
 
+buttons_list();
 toDoList();

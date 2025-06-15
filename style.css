@@ -51,7 +51,7 @@ ul {
     height: 50px;
     color: #fff;
     padding: 0 60px 0 20px;
-    background: rgba(255, 255, 255, 0.2);
+    background: #215F22;
     border-radius: 5px 23px 23px 5px;
     border: none;
     outline: none;
@@ -110,7 +110,7 @@ ul {
     right: 0;
 }
 
-.todo-buttons button, .todo-text {
+.todo-buttons div, .todo-text, .plus {
     width: 50px;
     height: 50px;
     float: left;
@@ -203,6 +203,7 @@ ul {
 
 .dropdown {
     margin-right: 20px;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -235,7 +236,7 @@ ul {
     background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdown-content, .dropdown:active .dropdown-content {
+.dropdown:hover .dropdown-content{
     display: block;
 }
 
@@ -257,17 +258,20 @@ ul {
     background-color: white;
 }
 
-.todo-text {
+.todo-text, .plus{
     color: rgb(83, 80, 80);
     font-size: 30px;
+    text-align: center;
+    padding-top: 10px;
 }
 
 .list-buttons {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     min-height: 50px;
     padding: 5px 0 0 14px;
-    gap: 10px;
+    gap: 20px;
 }
 
 .text-todo {
@@ -276,13 +280,13 @@ ul {
 
 @media (max-width: 767px) {
     .todo-item {
-        font-size: 8px;
+        font-size: 10px;
         padding: 10px 75px 10px 10px;
     }
 
     .todo:after,
     .todo-completed:after {
-        font-size: 8px;
+        font-size: 10px;
     }
 
     body {
@@ -290,15 +294,19 @@ ul {
     }
 
     .header-input {
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .todo-text {
         font-size: 14px;
-        padding: 5px 0 0 10px;
     }
 
-    .todo-buttons button, .todo-text {
+    .plus {
+        font-size: 24px;
+        padding: 0;
+    }
+
+    .todo-buttons div, .todo-text, .plus {
         width: 30px;
         height: 30px;
     }
@@ -336,7 +344,14 @@ ul {
 
     .todo-text {
         font-size: 26px;
-        padding: 5px 0 0 10px;
     }
+
+    .plus {
+        padding-top: 5px;
+    }
+}
+
+.hed {
+    width: auto;
 }
 /* @media (min-width: 1024px) {} */
